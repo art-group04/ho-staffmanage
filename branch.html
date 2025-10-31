@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branches</title>
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/atten.css">
+    <link rel="stylesheet" href="./assets/css/pop.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="content-body" style="margin: 0; padding: 14px;">
+  <div class="breadcrumb"><a href="./home">Home</a>&nbsp;> Branches</div>
+  <div class="main-container">
+    <div class="pageTitle">
+    <h2 id="pageTitle">Branches List</h2></div>
+
+    <div class="search-row">
+      <div class="branch-filter">
+        <input type="text" id="BranchSearch" class="search-input" placeholder="Search Branch">
+
+        <select id="BranchGroup" class="search-input select">
+          <option value="all">All</option>
+          <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+          <option value="a r t leasing limited">A R T Leasing</option>
+        </select>
+
+        <select id="BranchStatus" class="search-input select">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="closed">Closed</option>
+        </select>
+        
+      </div>
+      <div class="button-Branch">        
+        <button class="addBranch-btn" id="addBranchbtn">Add Branches</button>
+        <button class="assignBr-btn" id="btnAssignBr">Assign Branch</button>        
+      </div>
+
+    </div>
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+            <th>Code</th>
+            <th>Branch</th>
+          <th >Group</th>
+          <th>Open Date</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="BranchList">
+        <tr><td colspan="8" class="text-center">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- new Branch Popup -->
+<div id="newBranchPopup" class="popup-overlay-newBranch">
+  <div class="newBranch-popup" role="dialog" aria-labelledby="newBranchTitle" aria-modal="true">
+    <div class="title">
+      <h3 id="newBranchTitle">New Branches</h3>
+      <p id="status" aria-live="polite"></p></div>
+    <div class="inputFields">
+        <section class="branch-dtl">
+            <h4>Branch Details</h4>
+            <div class="inputBox">
+                <label for="bCode">Code</label>
+                <input type="text" id="bCode" >
+            </div>
+            <div class="inputBox">
+                <label for="opnDt">Open date</label>
+                <input type="date" id="opnDt" >
+            </div>
+            <div class="inputBox">
+                <label for="branchName">Branch</label>
+                <input type="text" id="branchName"  >
+            </div> 
+            <div class="inputBox">
+                <label for="companyIn">Group</label>
+                <select name="companyIn" id="companyIn">
+                  <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+                  <option value="a r t leasing limited">A R T Leasing</option>
+                </select>
+            </div>
+        </section>
+        <section class="Contact-dtl">
+            <h4>Contacts</h4>
+            <div class="inputBox">
+                <label for="phoneIn">Phone</label>
+                <input type="text" id="phoneIn" placeholder="Phone Number" inputmode="numeric" maxlength="10" autocomplete="tel" pattern="[0-9]{10}">
+            </div>
+            <div class="inputBox">
+                <label for="emailIn">Email</label>
+                <input type="email" id="emailIn" placeholder="branch@example.com"  autocomplete="email">
+            </div>
+            <div class="inputBox">
+                <label for="addressIn">Address</label>
+                <input type="text" id="addressIn" placeholder="Full address" autocomplete="street-address">
+            </div>
+        </section>
+        <section class="loction-del">
+            <h4>Location Details</h4>
+            <div class="inputBox location">
+                <label for="locationIn">Location</label>
+                <div class="locationInputs">
+                    <input type="text" id="latIn" placeholder="Latitude" inputmode="numeric" autocomplete="off"  >
+                    <input type="text" id="lngIn" placeholder="Longitude" inputmode="numeric" autocomplete="off" >
+                </div>
+            </div>
+            <div class="inputBox">
+                <label for="radius">Radius(Meter)</label>
+                <input type="text" id="radius" placeholder="Allowed Radius" >
+            </div>
+        </section>
+    </div>
+    <div class="newBranch-popup-buttons">
+        <button id="saveDtl" class="btn save">Save</button>
+        <button id="cancelDtl" class="btn cancel">Cancel</button>
+    </div>
+</div>
+</div>
+
+
+<script> 
+  const updateBtn = document.getElementById("addBranchbtn");
+const cancelBtn = document.getElementById("CancelDtl");
+const leavePopup = document.getElementById("newBranchPopup");
+
+updateBtn.addEventListener("click", () => {
+  newBranchPopup.style.display = "flex";
+});
+</script>
+
+<script type="module" src="./assets/js/utils/topbar.js"></script>
+<script type="module" src="./assets/js/branch.js"></script>
+<script type="module" src="./assets/js/newbranch.js"></script>
+</body>
+</html>

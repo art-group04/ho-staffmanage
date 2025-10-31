@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/atten.css">    
+</head>
+<body>
+
+<!---------------top bar and side menu----------------------------------------->
+ <div id="navbar-container"></div>
+<!---------------top bar and side menu----------------------------------------->
+
+<!--main ------------------>
+<div class="content-body" style="margin: 0; padding: 14px;">
+  <div class="breadcrumb"><a href="./home">Home</a>&nbsp;> Attendance</div>
+
+  <div class="main-container">
+    <div class="pageTitle">
+    <h2 id="pageTitle">Today's Employee Attendance</h2></div>
+
+    <div class="search-row">
+      <div class="atten-filter">
+        <input type="text" id="EmployeeSearch" class="search-input" placeholder="Search">
+        <select id="attnStatus" class="search-input select">
+          <option value="">All</option>
+          <option value="Present">Present</option>
+          <option value="Leave">Leave</option>
+        </select>
+        <input type="date" id="datePicker" class="date-filter" style="display:none">
+      </div>
+      <div class="button-attn">        
+        <button class="Today-btn" id="btnToday">Today</button>
+        <button class="history-btn" id="btnHistory">History</button>
+        
+      </div>
+    </div>
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Break-out</th>
+          <th>Break-in</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceList">
+        <tr><td colspan="8" class="text-center">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+<!-- Firebase Script -->
+<script type="module">
+  import { db, getDocs, collection } from "./assets/js/database.js";
+
+// 🔹 DOM Elements
+const attendanceList = document.getElementById("attendanceList");
+const searchInput = document.getElementById("EmployeeSearch");
+const statusSelect = document.getElementById("attnStatus");
+const btnToday = document.getElementById("btnToday");
+const btnHistory = document.getElementById("btnHistory");
+const datePicker = document.getElementById("datePicker");
+const pageTitle = document.getElementById("pageTitle");
+
+let allData = [];
+let todayView = true;
+let selectedDate = new Date().toISOString().split("T")[0];
+
+// 🔹 Safe Time Format
+function formatTime(t) {
+  if (!t) return "--";
+  try {
+    const d = t.toDate ? t.toDate() : new Date(t);
+    if (isNaN(d.getTime())) return "--";
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  } catch {
+    return "--";
+  }
+}
+
+// 🔹 Load Attendance
+async function loadAttendance() {
+  attendanceList.innerHTML = "<tr><td colspan='8' class='text-center'>Loading...</td></tr>";
+
+  // Load branch map
+  const branchSnaps = await getDocs(collection(db, "branches"));
+  const branchMap = {};
+  branchSnaps.forEach(d => (branchMap[d.id] = d.data().name));
+
+  // Load users
+  const userSnaps = await getDocs(collection(db, "users"));
+  const users = [];
+  userSnaps.forEach(d => {
+    const u = d.data();
+    users.push({
+      id: d.id,
+      name: u.user || "Unknown",
+      branch: branchMap[u.branchId] || "Unknown",
+    });
+  });
+
+  // Load attendance
+  const attSnaps = await getDocs(collection(db, "attendance"));
+  const records = [];
+
+  attSnaps.forEach(doc => {
+    const att = doc.data();
+    if (!att.dateStr) return;
+
+    // Filter by selected date (either today or selected date)
+    if (att.dateStr === selectedDate) records.push(att);
+  });
+
+  // Merge users + attendance
+  allData = users.map(u => {
+    const att = records.find(a => a.userId === u.id);
+    if (att) {
+      return {
+        name: u.name,
+        branch: u.branch,
+        checkIn: formatTime(att.time),
+        checkOut: formatTime(att.outTime),
+        breakOut: formatTime(att.breakOutTime),
+        breakIn: formatTime(att.breakInTime),
+        date: att.dateStr,
+        status: "Present",
+      };
+    } else {
+      return {
+        name: u.name,
+        branch: u.branch,
+        checkIn: "--",
+        checkOut: "--",
+        breakOut: "--",
+        breakIn: "--",
+        date: selectedDate,
+        status: "Leave",
+      };
+    }
+  });
+
+  applyFilters();
+}
+
+// 🔹 Apply Filters
+function applyFilters() {
+  const searchValue = searchInput.value.trim().toLowerCase();
+  const statusFilter = statusSelect.value;
+
+  const filteredData = allData.filter(a => {
+    const name = a.name ? a.name.toLowerCase() : "";
+    const matchesName = name.includes(searchValue);
+    const matchesStatus = statusFilter ? a.status === statusFilter : true;
+    return matchesName && matchesStatus;
+  });
+
+  renderTable(filteredData);
+}
+
+// 🔹 Render Table
+function renderTable(data) {
+  attendanceList.innerHTML = "";
+
+  if (data.length === 0) {
+    attendanceList.innerHTML =
+      "<tr><td colspan='8' class='text-center'>No attendance records found.</td></tr>";
+    return;
+  }
+
+  // Sort A–Z by branch
+  data.sort((a, b) => a.branch.localeCompare(b.branch));
+
+  data.forEach(d => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${d.name}</td>
+      <td>${d.branch}</td>
+      <td>${d.checkIn}</td>
+      <td>${d.checkOut}</td>
+      <td>${d.breakOut}</td>
+      <td>${d.breakIn}</td>
+      <td>${d.status}</td>
+    `;
+    attendanceList.appendChild(row);
+  });
+}
+
+// 🔹 Event Listeners
+searchInput.addEventListener("keyup", applyFilters);
+statusSelect.addEventListener("change", applyFilters);
+
+datePicker.addEventListener("change", e => {
+  selectedDate = e.target.value;
+  loadAttendance();
+});
+
+btnToday.addEventListener("click", () => {
+  todayView = true;
+  pageTitle.textContent = "Today's Employee Attendance";
+  datePicker.style.display = "none";
+  selectedDate = new Date().toISOString().split("T")[0];
+  loadAttendance();
+});
+
+btnHistory.addEventListener("click", () => {
+  todayView = false;
+  pageTitle.textContent = "Employee Attendance by Date";
+  datePicker.style.display = "inline-block";
+  datePicker.value = selectedDate;
+  loadAttendance();
+});
+
+// 🔹 Initial load
+loadAttendance();
+
+
+
+</script>
+<script type="module" src="./assets/js/utils/topbar.js"></script>
+</body>
+</html>

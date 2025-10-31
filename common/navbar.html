@@ -1,0 +1,40 @@
+<!-- 📁 common/navbar.html -->
+<header class="topbar">
+  <div class="menu-btn">
+    <img src="./assets/icons/menu-btn.png" alt="menu" class="menu-icon" id="openMenuBtn" title="menu">
+  </div>
+
+  <button id="signOutBtn" class="signout-btn">
+    <img src="./assets/icons/logout.png" alt="Logout" class="icon-btn" title="logout">
+  </button>
+</header>
+
+<aside class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <img src="./assets/icons/menu-btn.png" alt="User" class="menu-icon" id="closeMenuBtn">
+    <button id="closeMenu" class="close-btn" title="close menu">✕</button>
+  </div>
+
+  <div class="side-menu-cont"> 
+    <ul class="menu-list">
+      <li><img src="../assets/icons/home.png" alt="" srcset=""> <a href="../home">Dashboard</a></li>
+      <li><img src="../assets/icons/checkin.png" alt="" srcset=""><a href="../attendance">Attendance</a></li>
+      <li><img src="../assets/icons/employe.png" alt="" srcset=""><a href="../employee">Employees</a></li>
+      <li><img src="../assets/icons/Branches.png" alt="" srcset=""><a href="../branch">Branches</a></li>
+      <li><img src="../assets/icons/leave.png" alt="" srcset=""><a href="../leave">Leave Manage</a></li>
+      <li><img src="../assets/icons/perform.png" alt="" srcset=""><a href="../performance">Performance</a></li>
+      <li><img src="../assets/icons/setting.png" alt="" srcset=""><a href="../settings">Settings</a></li>
+    </ul>
+
+    <div class="user_info"> 
+      <img src="./assets/icons/user.png" alt="">
+      <div class="user_email">
+        <p id="sideMenuName" class="user">Loading...</p>
+        <p id="sideMenuemail" class="email"></p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div id="overlay" class="overlay"></div>
+

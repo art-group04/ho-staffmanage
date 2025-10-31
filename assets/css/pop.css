@@ -1,0 +1,187 @@
+.popup-overlay-newEmployee,
+.popup-overlay-newBranch,
+.popup-overlay-branchSett,
+.popup-overlay-userSett,
+.popup-overlay-hoUser {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  display: none; 
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-overlay-newEmployee.open,
+.popup-overlay-newBranch.open,
+.popup-overlay-branchSett.open,
+.popup-overlay-userSett.open,
+.popup-overlay-hoUser.open { display: flex; }
+
+.newEmployee-popup,
+.newBranch-popup,
+.branchSett-popup,
+.userSett-popup,
+.hoUser-popup {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 3px;
+  width: 90%;
+  max-width: 1100px;
+  text-align: left;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.18);
+  animation: slideUp 0.25s ease;
+  font-family: "Lato", system-ui, sans-serif;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.branchSett-popup {
+  width: 70%;
+}
+.userSett-popup {
+  width: 50%;
+}
+.newBranch-popup {
+  width: 70%;
+}
+.newEmployee-popup {
+  width: 70%;
+}
+.hoUser-popup {
+  width: 20%;
+}
+
+.title { margin: 0 0 5px 0; border-bottom: 1px solid #ccc; }
+.newEmployee-popup h3,
+.newBranch-popup h3,
+.newBranch-popup h3,
+.hoUserTitle h3 { font-size: 14px; text-transform: uppercase; font-weight: 600; margin:0; }
+
+.inputFields {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Ptag p{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.branch-dtl .inputBox p {
+  margin: 0;
+  padding: 6px 0;
+}
+.inputFields section {
+  flex: 1 1 300px;
+  min-width: 260px;
+}
+
+.inputFields h4 { margin: 0 0 8px 0; font-size: 14px; color: #222; }
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.inputBox.bank .bankInputs,
+.inputBox.location .locationInputs {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+}
+@media (max-width: 520px) {
+  .inputBox.bank .bankInputs, .inputBox.location .locationInputs { flex-direction: column; }
+}
+
+.inputFields input[type="text"],
+.inputFields input[type="email"],
+.inputFields input[type="password"],
+.inputFields input[type="date"],
+.inputFields input[type="number"],
+.inputFields select,
+.inputFields span {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27, 31, 35, 0.4);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 i;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: none;
+  border-radius: 2px;
+  padding: 8px 10px;
+  height: 35px;
+  align-items: center;
+}
+
+.inputFields select {
+  text-transform: capitalize;
+  font-size: 14px;
+  padding: 3px;
+}
+select option {
+  font-size: 13px;
+  background-color: #ffffff;
+}
+
+.inputFields input:focus, select:focus {
+  outline: none;
+   background: #d4d4d4d2;
+}
+
+label,
+.Ptag p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.newEmployee-popup-buttons,
+.newBranch-popup-buttons,
+.hoUser-popup-buttons {
+  margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+.newEmployee-popup-buttons .btn,
+.newBranch-popup-buttons .btn,
+.hoUser-popup-buttons .btn {
+ appearance: none;
+  background-color: #ffffffd3;
+  border: 1px solid rgba(27, 31, 35, 0.4);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+              rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292e;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 4px 10px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.newEmployee-popup-buttons .btn:active, .newBranch-popup-buttons .btn:active { transform: translateY(1px); }
+
+
+.update { background: #ffffffd3; }
+.update:hover { background: #0721b1; }
+.cancel { background: #ffffffd3; }
+.cancel:hover { background: #a31616; }
+.save { background: #ffffffd3;}
+.save:hover { background: rgba(0, 128, 0, 0.904); }
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
