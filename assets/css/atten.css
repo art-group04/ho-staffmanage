@@ -143,8 +143,8 @@
 }
 .table-container tbody {
   display: block;
-  max-height: 330px;
-  height: 330px;
+  max-height: auto;
+  height: auto;
   overflow-y: auto;
 }
 
@@ -209,4 +209,5 @@ td {
   text-transform: uppercase;
   width: 8%;
 }
+
 
