@@ -31,7 +31,7 @@ async function handleLogin() {
   }
 
   localStorage.setItem("loggedUser", JSON.stringify({ id: docSnap.id, ...user }));
-  window.location.href = "./home.html";
+  window.location.href = "./home";
 }
 
 // 🔹 Click login
