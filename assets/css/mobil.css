@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@1,14..32,900&family=Roboto:wdth,wght@88.1,100..900&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background: #ffe3e325;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  width: 19%;
+  max-width: 360px;
+  padding: 30px 24px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+/* LOGO */
+.logo {
+  background: #b40000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.logo img {
+  width: 70%;
+}
+
+/* TITLE */
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-top: 17px;
+  line-height: 0;
+}
+
+.app-sub {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 28px;
+  display: block;
+}
+
+/* INPUTS */
+.input-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+.input-group input {
+  width: 80%;
+  padding: 10px 30px 12px 10px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.3s;
+  background: #ebebeb;
+}
+.input-group input:focus {
+  border-color: #b30202;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(179,2,2,0.25);
+}
+.input-group .icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999;
+}
+
+/* BUTTON */
+.login-btn {
+  width: 70%;
+  background: #b30202;
+  color: #fff;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.login-btn:hover {
+  background: #d70303;
+  transform: scale(1.03);
+}
+
+.status-mssg {
+  color: #b30202;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+/* MOBILE ONLY */
+@media (min-width: 600px) {
+  body {
+    background: #f2f2f2;
+  }
+  .login-card {
+    transform: scale(1.1);
+  }
+}

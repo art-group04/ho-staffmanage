@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f83f3f">
+    <title>Leave Manage</title>
+    <link rel="icon" type="image/png"href="./assets/images/icon.png">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/atten.css">
+    <style>
+        .popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  width: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup-box h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.popup-box p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+<div class="content-body" style="margin: 0; padding: 14px;">
+  <div class="breadcrumb"><a href="./home.html">Home</a>&nbsp;> Leave</div>
+
+  <div class="main-container">
+    <div class="pageTitle">
+    <h2 id="pageTitle">leave Manage</h2></div>
+
+    <div class="search-row">
+      <div class="attn-filter">
+        <input type="text" id="leaveSearch" class="search-input" placeholder="Search">
+        <select id="leaveType" class="search-input select">
+        <option value="all">All</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+          </select>
+      </div>         
+
+      <div class="button-leave">        
+  <button class="user-btn" id="btnRequest">New Request</button>
+  <button class="branch-btn" id="btnHistory">Leave History</button>
+</div>
+    </div>
+
+<div class="table-container">
+    <table id="leaveTable">
+      <thead id="leavesHeader"></thead>
+      <tbody id="leaveBody"></tbody>
+    </table>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- Leave Details Popup -->
+<div id="LeavePopup" class="popup-overlay">
+  <div class="popup-box">
+    <button id="closePopup" class="close-btn" style="color: black;">✖</button>
+    <div id="LeavePopupContent"></div>    
+  </div>
+</div>
+
+
+<script type="module" src="./assets/js/leave.js"></script>
+<script type="module" src="./assets/js/utils/topbar.js"></script>
+</body>
+</html>

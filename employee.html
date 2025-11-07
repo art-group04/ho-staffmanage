@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f83f3f">
+    <title>Employee's</title>
+    <link rel="icon" type="image/png"href="./assets/images/icon.png">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/atten.css">
+    <link rel="stylesheet" href="./assets/css/pop.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+<div class="content-body" style="margin: 0; padding: 14px;">
+  <div class="breadcrumb"><a href="./home.html">Home</a>&nbsp;> Employee</div>
+  <div class="main-container">
+    <div class="pageTitle">
+    <h2 id="pageTitle">Company Employee's</h2></div>
+
+    <div class="search-row">
+      <div class="employe-filter">
+        <input type="text" id="EmployeeSearch" class="search-input" placeholder="Search Employee">
+
+        <select id="eCatagory" class="search-input select">
+          <option value="">All</option>
+          <option value="headoffice">HeadOfiice</option>
+          <option value="branch">Branch</option>
+        </select>
+
+        <select id="employeGroup" class="search-input select">
+          <option value="all">All</option>
+          <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+          <option value="a r t leasing limited">A R T Leasing</option>
+        </select>
+
+        <select id="employeStatus" class="search-input select">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="leave">Leave</option>
+          <option value="resigned">Resigned</option>
+        </select>
+        
+      </div>
+      <div class="button-employ">        
+        <button class="addUser-btn" id="addUserbtn">Add Employee</button>     
+      </div>
+
+    </div>
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+          <th >Group</th>
+          <th>Branch</th>
+          <th >Designation</th>
+          <th>Hire Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="employeList">
+        <tr><td colspan="8" class="text-center">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- newEmployeePopup -->
+<div id="newEmployeePopup" class="popup-overlay-newEmployee">
+  <div class="newEmployee-popup" role="dialog" aria-labelledby="newEmployeeTitle" aria-modal="true">
+    <div class="title">
+      <h3 id="newEmployeeTitle">New Employee</h3>
+      <p id="status" aria-live="polite"></p>
+    </div>
+
+    <div class="inputFields">
+      <section class="personal-dtl">
+        <h4>Personal Details</h4>
+
+        <div class="inputBox">
+          <label for="stafName">Name</label>
+          <input type="text" id="stafName" placeholder="Full name" required>
+        </div>
+
+        <div class="inputBox">
+          <label for="dobIn">Date of birth</label>
+          <input type="date" id="dobIn" max="2100-12-31">
+        </div>
+
+        <div class="inputBox">
+          <label for="mobileIn">Phone</label>
+          <input type="text" id="mobileIn" placeholder="10 digit phone" inputmode="numeric" maxlength="10" autocomplete="tel" pattern="[0-9]{10}">
+        </div>
+
+        <div class="inputBox">
+          <label for="addressIn">Address</label>
+          <input type="text" id="addressIn" placeholder="Full address" autocomplete="street-address">
+        </div>
+
+        <div class="inputBox">
+          <label for="iddetailsIn">Aadhaar</label>
+          <input type="text" id="iddetailsIn" placeholder="12 digit Aadhaar" inputmode="numeric" maxlength="12" pattern="[0-9]{12}">
+        </div>
+
+        <div class="inputBox bank">
+          <label for="bankIn">Bank details</label>
+          <div class="bankInputs">
+            <input type="text" id="bankIn" placeholder="Bank name" autocomplete="organization">
+            <input type="text" id="banknumIn" placeholder="Account number" inputmode="numeric" autocomplete="off" maxlength="24">
+          </div>
+        </div>
+      </section>
+
+      <section class="office-dtl">
+        <h4>Company Details</h4>
+
+        <div class="inputBox">
+          <label for="eCodeIn">Code</label>
+          <input type="text" id="eCodeIn" placeholder="Employee code">
+        </div>
+
+        <div class="inputBox">
+          <label for="jDateIn">Hire date</label>
+          <input type="date" id="jDateIn" required>
+        </div>
+
+        <div class="inputBox">
+          <label for="companyIn">Company</label>
+          <select name="companyIn" id="companyIn">
+                  <option disabled selected>Select Company</option>
+                  <option value="a r t leasing limited">A R T Leasing</option>
+                  <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+                  <option value="a r t group">A R T Group</option>
+                  <option value="chengannur chits">Chengannur Chits</option>          
+          </select>
+        </div>
+
+        <div class="inputBox">
+          <label for="branchIn">Branch</label>
+          <select name="branchIn" id="branchIn"></select>
+        </div>
+
+        <div class="inputBox">
+          <label for="designationIn">Designation</label>
+          <select name="designationIn" id="designationIn">
+            <option disabled selected>Select Designation</option>
+            <option value="accounts clerk">Accounts Clerk</option>
+            <option value="branch manager">Branch Manager</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="user-del">
+        <h4>User Details</h4>
+
+        <div class="inputBox">
+          <label for="usernameIn">Email</label>
+          <input type="email" id="usernameIn" placeholder="user@example.com" required autocomplete="email">
+        </div>
+
+        <div class="inputBox">
+          <label for="passwordIn">Password</label>
+          <input type="password" id="passwordIn" placeholder="Password" autocomplete="new-password">
+        </div>
+      </section>
+    </div>
+
+    <div class="newEmployee-popup-buttons">
+      <button id="saveDtl" class="btn save">Save</button>
+      <button id="cancelDtl" class="btn cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Employee presonal detail Popup -->
+<div id="presonaldetailPopup" class="popup-overlay-presonaldetail">
+  <div class="presonaldetail-popup" role="dialog" aria-labelledby="presonaldetailTitle" aria-modal="true">
+    <div class="title">
+      <h3 id="presonaldetailTitle">Employee Details</h3>
+      <p id="status" aria-live="polite"></p>
+    </div>
+
+    <div class="inputFields">
+      <section class="personal-dtl view">
+        <h4>Personal Details</h4>
+
+        <div class="inputBox">
+          <label for="stafNameout">Name</label>
+          <input type="text" id="stafNameout"  required>
+        </div>
+
+        <div class="inputBox">
+          <label for="dobout">Date of birth</label>
+          <input type="date" id="dobout" max="2100-12-31">
+        </div>
+
+        <div class="inputBox">
+          <label for="mobileout">Phone</label>
+          <input type="text" id="mobileout"  inputmode="numeric" maxlength="10" autocomplete="tel" pattern="[0-9]{10}">
+        </div>
+
+        <div class="inputBox">
+          <label for="addressout">Address</label>
+          <input type="text" id="addressout"  autocomplete="street-address">
+        </div>
+
+        <div class="inputBox">
+          <label for="iddetailsout">Aadhaar</label>
+          <input type="text" id="iddetailsout"  inputmode="numeric" maxlength="12" pattern="[0-9]{12}">
+        </div>
+
+        <div class="inputBox bank">
+          <label for="bankout">Bank details</label>
+          <div class="bankInputs">
+            <input type="text" id="bankout"  autocomplete="organization">
+            <input type="text" id="banknumout"  inputmode="numeric" autocomplete="off" maxlength="24">
+          </div>
+        </div>
+      </section>      
+    </div>
+
+    <div class="newEmployee-popup-buttons">      
+      <button id="closeDtl" class="btn cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!------ employee company detail popup------------>
+<div id="companydetailPopup" class="popup-overlay-companydetail">
+  <div class="companydetail-popup" role="dialog" aria-labelledby="companydetailTitle" aria-modal="true">
+    <div class="title">
+      <h3 id="companydetailTitle">Employee Details</h3>
+      <p id="status" aria-live="polite"></p>
+    </div>
+    <div class="inputFields">  
+      <section class="office-dtl">
+        <div class="inputBox">
+          <label for="eCodeOut">Code</label>
+          <input type="text" id="eCodeOut" placeholder="Employee code">
+        </div>
+        <div class="inputBox">
+          <label for="jDateOut">Hire date</label>
+          <input type="date" id="jDateOut" required>
+        </div>
+        <div class="inputBox">
+          <label for="NameOut">Name</label>
+          <input type="text" id="NameOut" placeholder="Full name" required>
+        </div>
+
+        <div class="inputBox">
+          <label for="companyOut">Group</label>
+          <select name="companyOut" id="companyOut">
+            <option disabled selected>Select Company</option>
+                  <option value="a r t leasing limited">A R T Leasing</option>
+                  <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+                  <option value="a r t group">A R T Group</option>
+                  <option value="chengannur chits">Chengannur Chits</option> 
+          </select>
+        </div>       
+
+        <div class="inputBox">
+          <label for="designationOut">Designation</label>
+          <select name="designationOut" id="designationOut">
+            <option value="accounts clerk">Accounts Clerk</option>
+            <option value="branch manager">Branch Manager</option>
+          </select>
+        </div>                
+      </section>    
+      <section class="office-dtl">  
+        <div class="inputBox">
+          <label for="branchOut">Branch</label>
+          <select name="branchOut" id="branchOut"></select>
+        </div>
+         <div class="inputBox">
+          <label for="statusOut">Designation</label>
+          <select name="statusOut" id="statusOut">
+            <option value="active">Active</option>
+            <option value="leave">Leave</option>
+            <option value="resigned">Resigned</option>
+          </select>
+        </div>  
+      </section> 
+    </div>
+     <div class="newEmployee-popup-buttons">
+           <button id="UpdateComp" class="btn update">Update</button>
+           <button id="cancelComp" class="btn cancel">Cancel</button>          
+    </div>    
+  </div>
+</div>
+
+
+
+<script>
+  const updateBtn = document.getElementById("addUserbtn");
+const cancelBtn = document.getElementById("CancelDtl");
+const leavePopup = document.getElementById("newEmployeePopup");
+
+updateBtn.addEventListener("click", () => {
+  newEmployeePopup.style.display = "flex";
+});
+</script>
+
+<script type="module" src="./assets/js/utils/topbar.js"></script>
+<script type="module" src="./assets/js/employe.js"></script>
+<script type="module" src="./assets/js/addemploye.js"></script>
+</body>
+</html>
