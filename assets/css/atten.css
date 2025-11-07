@@ -143,10 +143,31 @@
 }
 .table-container tbody {
   display: block;
-  max-height: auto;
-  height: auto;
   overflow-y: auto;
+  max-height: 60vh;
 }
+
+/* mob */
+@media (max-width: 600px) {
+  .table-container tbody {
+    max-height: 50vh;
+  }
+}
+
+/* tab */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .table-container tbody {
+    max-height: 65vh;
+  }
+}
+
+/* desktop */
+@media (min-width: 1025px) {
+  .table-container tbody {
+    max-height: 70vh;
+  }
+}
+
 
 .table-container thead,
 .table-container tbody tr {
@@ -209,5 +230,6 @@ td {
   text-transform: uppercase;
   width: 8%;
 }
+
 
 
