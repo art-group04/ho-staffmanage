@@ -19,7 +19,7 @@ async function populateBranchDropdown() {
   branches.sort((a, b) => a.name.localeCompare(b.name));
 
   const dropdown = document.getElementById("branchIn");
-  dropdown.innerHTML = `<option value="" disabled selected>Select Branch</option>`;
+  dropdown.innerHTML = `<option value="" disabled selected>Select Group</option>`;
 
   branches.forEach(b => {
     const opt = document.createElement("option");

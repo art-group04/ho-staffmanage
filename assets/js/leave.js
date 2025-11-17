@@ -1,6 +1,5 @@
-import {  db, collection, query, where, getDocs  } from "./database.js";
+import { db, collection, query, where, getDocs, doc, updateDoc } from "./database.js";
 import { formatDate } from "./utils/formatdate.js";
-
 
 // 🔹 DOM Elements
 const btnRequest = document.getElementById("btnRequest");
@@ -10,15 +9,22 @@ const searchInput = document.getElementById("leaveSearch");
 const leavesHeader = document.getElementById("leavesHeader");
 const leaveBody = document.getElementById("leaveBody");
 
-const popup = document.getElementById("LeavePopup");
+const popup = document.getElementById("newLeavePopup");
 const popupContent = document.getElementById("LeavePopupContent");
 const popupClose = document.getElementById("closePopup");
+const popupSave = document.getElementById("leavesave");
+
+// popup input fields
+const popupStatus = document.getElementById("status");
+const popupLeaveType = document.getElementById("leaveType");
+const popupRemarks = document.getElementById("remarks");
 
 let allLeaves = [];
 let branchMap = {};
-let currentPage = "request"; 
+let currentPage = "request";
+let selectedLeaveId = null; // 🔹 store the selected record ID
 
-// 🔹 Load all branches once and map by ID
+// 🔹 Load branch names
 async function loadBranchMap() {
   const snap = await getDocs(collection(db, "branches"));
   snap.forEach(docSnap => {
@@ -27,11 +33,11 @@ async function loadBranchMap() {
   });
 }
 
-// 🔹 Load leave requests and attach branch name
+// 🔹 Load leave requests
 async function loadLeaves() {
   leaveBody.innerHTML = `<tr><td colspan="6" class="text-center">Loading...</td></tr>`;
-  await loadBranchMap(); 
-  const querySnapshot = await getDocs(collection(db, "leaveRequests"));    
+  await loadBranchMap();
+  const querySnapshot = await getDocs(collection(db, "leaveRequests"));
   allLeaves = querySnapshot.docs.map(doc => {
     const d = doc.data();
     return {
@@ -40,7 +46,6 @@ async function loadLeaves() {
       branchName: branchMap[d.branchId] || "—",
     };
   });
-
   renderTable();
 }
 
@@ -82,8 +87,6 @@ function renderTable() {
   const searchTerm = searchInput.value.toLowerCase();
   data = data.filter(l => l.username?.toLowerCase().includes(searchTerm));
 
-  console.log("All Leaves:", allLeaves.map(l => l.status));
-
   if (data.length === 0) {
     leaveBody.innerHTML = `<tr><td colspan="7" class="text-center">No records found</td></tr>`;
     return;
@@ -99,9 +102,9 @@ function renderTable() {
         <td>${l.fromDate ? formatDate(l.fromDate) : "-"}</td>
         ${
           currentPage === "request"
-            ? `<td><button class="view-btn" data-id="${l.id}">View</button></td>`
+            ? `<td><button class="view-btn" data-id="${l.id}">✏️</button></td>`
             : `<td class="${l.status?.toLowerCase()}">${l.status}</td>
-               <td><button class="view-btn" data-id="${l.id}">View</button></td>`
+               <td><button class="view-btn" title="View" data-id="${l.id}">....</button></td>`
         }
       </tr>`)
     .join("");
@@ -115,48 +118,100 @@ function renderTable() {
   );
 }
 
-
-// 🔹 Popup
+// 🔹 Show Popup
 function showPopup(data) {
+  selectedLeaveId = data.id; // store the selected doc ID
+
   popupContent.innerHTML = `
-    <h3>Leave Details</h3>
-    <p><strong>Name:</strong> ${data.username || "-"}</p>
-    <p><strong>Branch:</strong> ${data.branchName}</p>
-    <p><strong>Leave Type:</strong> ${data.leaveType || "-"}</p>
-    <p><strong>Section:</strong> ${data.time || "-"}</p>
-    <p><strong>From:</strong> ${data.fromDate || "-"}</p>
-    <p><strong>To:</strong> ${data.toDate || "-"}</p>
-    <p><strong>Reason:</strong> ${data.reason || "-"}</p>
-    <p><strong>Status:</strong> ${data.status || "-"}</p>
-  `;
+  <div class="inputBox">
+    <label>Name</label>
+    <input type="text" value="${data.username || "-"}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Branch</label>
+    <input type="text" value="${data.branchName}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Leave Duration</label>
+    <input type="text" value="${data.leaveDuration || "-"}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Section</label>
+    <input type="text" value="${data.time || "-"}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Leave From</label>
+    <input type="text" value="${formatDate(data.fromDate) || "-"}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Leave To</label>
+    <input type="text" value="${formatDate(data.toDate) || "-"}" readonly>
+  </div>
+  <div class="inputBox">
+    <label>Reason</label>
+    <input type="text" value="${data.reason || "-"}" readonly>
+  </div>`;
+
+  // Reset previous inputs
+  document.getElementById("statusIn").value = data.status || "";
+  document.getElementById("leaveTypeIn").value = data.leaveType || "";
+  document.getElementById("remarks").value = data.remarks || "";
+
   popup.style.display = "flex";
 }
 
-
+// 🔹 Close Popup
 popupClose.addEventListener("click", () => {
   popup.style.display = "none";
 });
 
+// 🔹 Save Updated Data
+popupSave.addEventListener("click", async () => {
+  if (!selectedLeaveId) return;
+
+  const newStatus = document.getElementById("statusIn").value;
+  const newLeaveType = document.getElementById("leaveTypeIn").value;
+  const newRemarks = document.getElementById("remarks").value.trim();
+
+  if (!newStatus) {
+    alert("Please select both status and leave type.");
+    return;
+  }
+
+  try {
+    const ref = doc(db, "leaveRequests", selectedLeaveId);
+    await updateDoc(ref, {
+      status: newStatus,
+      leaveType: newLeaveType,
+      remarks: newRemarks,
+    });
+
+    alert("Leave request updated successfully!");
+    popup.style.display = "none";
+    loadLeaves(); // reload data
+  } catch (err) {
+    console.error("Error updating leave:", err);
+    alert("Failed to update leave request.");
+  }
+});
 
 // 🔹 Filters and Buttons
 btnRequest.addEventListener("click", () => {
   currentPage = "request";
+  popupSave.style.display = "flex";
   leaveType.style.display = "none";
   renderTable();
 });
 
 btnHistory.addEventListener("click", () => {
   currentPage = "history";
+  popupSave.style.display = "none";
   leaveType.style.display = "inline-block";
-  renderTable();
+  renderTable();    
 });
 
 leaveType.addEventListener("change", renderTable);
 searchInput.addEventListener("input", renderTable);
 
-
-
 // 🔹 Initial Load
 loadLeaves();
-
-

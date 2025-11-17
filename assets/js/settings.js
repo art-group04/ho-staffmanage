@@ -360,3 +360,39 @@ cancelUser.addEventListener("click", () => {
   renderTable("user", allUsers);
   searchInput.oninput = () => applySearch("user");
 })();
+
+
+function applySearch(type) {
+  const term = searchInput.value.toLowerCase();
+
+  let filtered = [];
+
+  if (type === "user") {
+    filtered = allUsers.filter(u =>
+      u.code.toLowerCase().includes(term) ||
+      u.name.toLowerCase().includes(term) ||
+      u.username.toLowerCase().includes(term) ||
+      u.device.toLowerCase().includes(term)
+    );
+  }
+
+  if (type === "branch") {
+    filtered = allBranches.filter(b =>
+      b.code.toLowerCase().includes(term) ||
+      b.branch.toLowerCase().includes(term) ||
+      b.lat.toLowerCase().includes(term) ||
+      b.lng.toLowerCase().includes(term) ||
+      b.status.toLowerCase().includes(term)
+    );
+  }
+
+  if (type === "houser") {
+    filtered = allhousers.filter(h =>
+      h.name.toLowerCase().includes(term) ||
+      h.username.toLowerCase().includes(term) ||
+      h.role.toLowerCase().includes(term)
+    );
+  }
+
+  renderTable(type, filtered);
+}

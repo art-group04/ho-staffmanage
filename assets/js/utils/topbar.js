@@ -1,7 +1,5 @@
 import { loader, currentUser } from './loggeduser.js';
 
-
-
 // 🔹 Load common navbar dynamically
 fetch("./common/navbar.html")
   .then(response => response.text())
@@ -49,3 +47,13 @@ fetch("./common/navbar.html")
     });
   })
   .catch(error => console.error("Navbar load failed:", error));
+
+
+  // 🔹 Disable autocomplete for all inputs across the project
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("input").forEach(input => {
+    input.setAttribute("autocomplete", "off");  
+    input.setAttribute("autocapitalize", "off");
+   
+  });
+});

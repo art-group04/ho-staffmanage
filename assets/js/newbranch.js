@@ -4,10 +4,7 @@ const newBranchPopup = document.getElementById("newBranchPopup");
 const cancelBtn = document.getElementById("cancelDtl");
 
 document.getElementById("saveDtl").onclick = async () => {
-  const name = document.getElementById("branchName").value.trim();
-  const lat = parseFloat(document.getElementById("latIn").value);
-  const lon = parseFloat(document.getElementById("lngIn").value);
-  const radius = parseInt(document.getElementById("radius").value);
+  const name = document.getElementById("branchName").value.trim();  
   const bCode = document.getElementById("bCode").value.trim();
   const opendt = document.getElementById("opnDt").value;
   const group = document.getElementById("companyIn").value.trim();
@@ -18,12 +15,11 @@ document.getElementById("saveDtl").onclick = async () => {
   if (!name || !bCode || !group || !phone ) {
     return alert("⚠️ Please fill all required fields correctly.");
   }
-
   await addDoc(collection(db, "branches"), {
     name,
-    lat: lat,
-    lng: lon,
-    radius_m: radius,
+    lat: "",
+    lng: "",
+    radius_m:"",
     bCode,
     opendt,
     group,
@@ -37,8 +33,6 @@ document.getElementById("saveDtl").onclick = async () => {
 
   alert("✅ Branch added successfully!");
   newBranchPopup.style.display = "none";
-
-
 };
 
 cancelBtn.addEventListener("click", () => {

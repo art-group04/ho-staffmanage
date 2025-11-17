@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Manage</title>
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/atten.css">    
+    <style>
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(3px);
+}
+.popup-box {
+  background: #fff;
+  width: 100%;
+  max-width: 750px;
+  max-height: 100vh;       
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  animation: popupIn 0.25s ease-in-out;
+}
+.popup-box .title  { margin: 0 0 4px 0; border-bottom: 1px solid #ccc; }
+.popup-box h3 { font-size: 14px; text-transform: uppercase; font-weight: 600; margin:0; }
+
+.useDetails   { margin: 0 0 4px 0; font-size: 12px; text-transform: capitalize;}
+.useDetails p span { font-weight: 700; font-size: 14px; }
+
+#approvedTable {
+  width: 98%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+#approvedTable tbody {
+  display: block;
+  max-height: 400px;      
+  overflow-y: auto;
+  width: 100%;
+}
+#approvedTable thead,
+#approvedTable tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+#approvedTable thead {
+   background: #f0f0f07a;
+  color: #000000;
+  position: sticky;
+  top: 0;
+}
+#approvedTable th,
+#approvedTable td {  
+  padding: 8px 10px;
+  text-align: center;
+}
+#approvedTable tbody tr:hover {
+  background-color: #e7e7e7;
+}
+.inputFields {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+label{ font-size: 12px; font-weight: 600;}
+.inputFields select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  font-size: 0.8rem;
+  width: 20%;
+}
+.newLeavePopup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn {
+ appearance: none;
+  background-color: #ffffffd3;
+  border: 1px solid rgba(27, 31, 35, 0.4);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+              rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292e;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 4px 10px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.cancel { background: #ffffffd3; }
+.cancel:hover { background: #a31616; }
+.save { background: #ffffffd3;}
+.save:hover { background: rgba(0, 128, 0, 0.904); }
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (max-width: 500px) {
+  .popup-box {
+    width: 90%;
+    padding: 18px;
+  }
+
+  #approvedTable th,
+  #approvedTable td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  #approvedTable tbody {
+    max-height: 180px; 
+  }
+
+  .inputFields {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .newLeavePopup-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+    </style>
+    
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+<div class="content-body" style="margin: 0; padding: 14px;">
+  <div class="breadcrumb"><a href="./home.html">Home</a>&nbsp;> Allowance</div>
+
+  <div class="main-container">
+    <div class="pageTitle">
+    <h2 id="pageTitle">Allowance Manage</h2></div>
+
+    <div class="search-row">
+      <div class="attn-filter">
+        <input type="text" id="TaSearch" class="search-input" placeholder="Search">
+        <select id="TaType" class="search-input select">
+        <option value="all">All</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+          </select>
+      </div>         
+
+      <div class="button-Ta">        
+  <button class="user-btn" id="btnRequest">New Request</button>
+  <button class="branch-btn" id="btnHistory">History</button>
+</div>
+    </div>
+
+<div class="table-container">
+    <table id="TaTable">
+      <thead id="TaHeader"></thead>
+      <tbody id="TaBody"></tbody>
+    </table>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!--- popup -----------------------------------------> 
+  <div class="popup-overlay" id="showPopup">
+    <div class="popup-box">
+      <div class="title">
+        <h3 id="popupTitle">Travel Allowance</h3></div>
+        <div class="useDetails">
+          <p>Name: <span id="user"></span></p>
+          <p>Branch: <span id="branch"></span></p>
+        </div>
+        <table id="approvedTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Visited To</th>
+              <th>Purpose</th>
+              <th>Mode</th>
+              <th>km</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="taEntries"> </tbody>    
+        </table>
+          <div class="inputFields" id="selectInputs">
+            <label for="taStatus">Status</label>
+            <select name="taStatus" id="taStatus">
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+            <div class="newLeavePopup-buttons">
+              <button id="UpdateStatus" class="btn save">Save</button>      
+              <button id="closePopup" class="btn cancel">Cancel</button>    
+            </div> 
+          </div>      
+        </div>
+
+<script type="module" src="./assets/js/allowance.js"></script>
+<script type="module" src="./assets/js/utils/topbar.js"></script>
+</body>
+</html>

@@ -10,8 +10,7 @@ const firebaseConfig = {
     projectId: "art-staffmanage",
     storageBucket: "art-staffmanage.firebasestorage.app",
     messagingSenderId: "951269778971",
-    appId: "1:951269778971:web:11fbb26385588ced133abe"  
-    
+    appId: "1:951269778971:web:11fbb26385588ced133abe"     
 
 };
 

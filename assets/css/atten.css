@@ -67,7 +67,8 @@
 .edit-btn,
 .reset-device,
 .edit-user,
-.view-user {
+.view-user,
+.table-container .view-btn {
   appearance: none;
   background-color: #ffffffd3;
   border: 1px solid rgba(27, 31, 35, 0.4);
@@ -96,7 +97,8 @@
 }
 .edit-btn:hover,
 .reset-device:hover,
-.edit-user:hover {
+.edit-user:hover,
+.view-btn:hover {
   transform: scale(1.1);
   background-color: #f3f4f6;
 }
@@ -148,14 +150,12 @@
   max-height: auto;
 }
 
-/* മൊബൈൽ */
 @media (max-width: 600px) {
   .table-container tbody {
     max-height: 50vh;
   }
 }
 
-/* ടാബ്ലെറ്റ് */
 @media (min-width: 601px) and (max-width: 1024px) {
   .table-container tbody {
     max-height: 65vh;
@@ -192,6 +192,9 @@ td {
   color: #000;
   font-size: 12px;
   text-align: left;
+}
+tbody tr:hover {
+  transform:translateY(-3px);background:linear-gradient(90deg,rgba(180,0,0,0.03), rgba(0,0,0,0.01))
 }
 
 .text-center {

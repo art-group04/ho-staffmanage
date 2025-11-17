@@ -3,55 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f83f3f">
     <title>Leave Manage</title>
-    <link rel="icon" type="image/png"href="./assets/images/icon.png">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/atten.css">
+    <link rel="stylesheet" href="./assets/css/pop.css">
     <style>
-        .popup-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup-box {
-  background: #fff;
-  padding: 20px 25px;
-  border-radius: 12px;
-  width: 360px;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.popup-box h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-}
-
-.popup-box p {
-  margin: 5px 0;
-  font-size: 14px;
-}
+      
 
     </style>
 </head>
@@ -93,10 +50,43 @@
 </div>
 
 <!-- Leave Details Popup -->
-<div id="LeavePopup" class="popup-overlay">
-  <div class="popup-box">
-    <button id="closePopup" class="close-btn" style="color: black;">✖</button>
-    <div id="LeavePopupContent"></div>    
+<div id="newLeavePopup" class="popup-overlay-NewRequest">
+  <div class="newRequest-popup">
+    <div class="title">
+      <h3>Leave Application</h3>
+      </div>
+    <div class="inputFields">
+      <section class="personal-dtl">       
+        <div id="LeavePopupContent"></div> 
+      </section>
+
+      <section class="office-dtl">
+        <div class="inputBox">
+          <label for="statusIn">Application</label>
+          <select name="statusIn" id="statusIn" >
+                  <option disabled selected></option>
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>                      
+          </select>
+        </div>
+          <div class="inputBox">
+          <label for="leaveTypeIn">Leave Type</label>
+          <select name="leaveTypeIn" id="leaveTypeIn" >                 
+                  <option value="Medical">Medical</option>
+                  <option value="Casual">Casual</option>
+                  <option value="LOP">LOP</option>     
+          </select>
+          </div>
+          <div class="inputBox">
+            <label for="remarks">Remarks</label>
+            <input type="text" id="remarks">
+          </div>
+      </section>
+    </div>
+    <div class="newLeavePopup-buttons">
+      <button id="leavesave" class="btn save">Save</button>
+      <button id="closePopup" class="btn cancel">Cancel</button>
+    </div>    
   </div>
 </div>
 

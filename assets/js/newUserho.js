@@ -2,13 +2,12 @@ import { db, collection, addDoc, serverTimestamp } from "./database.js";
 
 document.getElementById("saveBtn").onclick = async () => {
   const user = document.getElementById("nameIn").value.trim();
-  const email = document.getElementById("useremail").value.trim();
-  const username = document.getElementById("userINname").value.trim();
+  const username = document.getElementById("useremail").value.trim();
   const password = document.getElementById("userpasswordIn").value.trim();
   const role = document.getElementById("roleIn").value;
   const hoUserPopup = document.getElementById("hoUserPopup");
 
-  if (!username || !password || !user || !email) {
+  if (!username || !password || !user) {
     alert("⚠️ Fill all user fields");
     return;
   }
@@ -17,7 +16,6 @@ document.getElementById("saveBtn").onclick = async () => {
     await addDoc(collection(db, "housers"), {
       username,
       password,
-      email,
       role,
       user,
       createdAt: serverTimestamp(),

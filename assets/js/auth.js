@@ -2,12 +2,12 @@ import { db, collection, getDocs, query, where } from './database.js';
 
 const statusBox = document.getElementById("status-mssg");
 const signInBtn = document.getElementById("signInBtn");
-const userNameEl = document.getElementById("userName");
+const email = document.getElementById("email");
 const pass = document.getElementById("pass");
 
 // 🔸 Common login function
 async function handleLogin() {
-  const username = userNameEl.value.trim();
+  const username = email.value.trim();
   const password = pass.value.trim();
 
   if (!username || !password) {
@@ -31,7 +31,7 @@ async function handleLogin() {
   }
 
   localStorage.setItem("loggedUser", JSON.stringify({ id: docSnap.id, ...user }));
-  window.location.href = "./home";
+  window.location.href = "./home.html";
 }
 
 // 🔹 Click login

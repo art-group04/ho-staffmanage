@@ -1,0 +1,168 @@
+/* 🔹 Popup overlay */
+.popup-overlay-companydetail {
+  display: none; /* default hidden */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease;
+}
+
+/* 🔹 Popup box */
+.companydetail-popup {
+  background: #fff;
+  border-radius: 16px;
+  width: 480px;
+  max-width: 95%;
+  padding: 20px 28px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.35s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🔹 Title */
+.companydetail-popup .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.companydetail-popup h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 🔹 Input fields layout */
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.inputFields section {
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.inputFields h4 {
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 🔹 Input boxes */
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.inputBox label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.inputBox input,
+.inputBox select {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  outline: none;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+.inputBox input:focus,
+.inputBox select:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+}
+
+/* 🔹 Leave details block */
+#LeavePopupContent {
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+#LeavePopupContent h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #0077ff;
+}
+
+#LeavePopupContent p {
+  font-size: 0.9rem;
+  margin: 3px 0;
+  color: #333;
+}
+
+#LeavePopupContent span {
+  font-weight: 500;
+}
+
+/* 🔹 Buttons */
+.newEmployee-popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.25s;
+}
+
+.btn.save {
+  background-color: #0077ff;
+  color: white;
+}
+
+.btn.cancel {
+  background-color: #eee;
+  color: #333;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔹 Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 🔹 Responsive */
+@media (max-width: 480px) {
+  .companydetail-popup {
+    width: 90%;
+    padding: 15px 20px;
+  }
+  .inputFields section {
+    padding: 12px;
+  }
+}

@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f83f3f">
     <title>Branches</title>
-    <link rel="icon" type="image/png"href="./assets/images/icon.png">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/atten.css">
     <link rel="stylesheet" href="./assets/css/pop.css">
@@ -71,23 +69,24 @@
       <h3 id="newBranchTitle">New Branches</h3>
       <p id="status" aria-live="polite"></p></div>
     <div class="inputFields">
-        <section class="branch-dtl">
+        <section class="branch-dtl" >
             <h4>Branch Details</h4>
             <div class="inputBox">
                 <label for="bCode">Code</label>
-                <input type="text" id="bCode" >
+                <input type="text" id="bCode" autocomplete="off">
             </div>
             <div class="inputBox">
                 <label for="opnDt">Open date</label>
-                <input type="date" id="opnDt" >
+                <input type="date" id="opnDt" autocomplete="off">
             </div>
             <div class="inputBox">
                 <label for="branchName">Branch</label>
-                <input type="text" id="branchName"  >
+                <input type="text" id="branchName" autocomplete="off">
             </div> 
             <div class="inputBox">
                 <label for="companyIn">Group</label>
                 <select name="companyIn" id="companyIn">
+                  <option disabled selected>Select Branch Group</option>
                   <option value="chengannur nidhi limited">Chengannur Nidhi</option>
                   <option value="a r t leasing limited">A R T Leasing</option>
                 </select>
@@ -97,31 +96,17 @@
             <h4>Contacts</h4>
             <div class="inputBox">
                 <label for="phoneIn">Phone</label>
-                <input type="text" id="phoneIn" placeholder="Phone Number" inputmode="numeric" maxlength="10" autocomplete="tel" pattern="[0-9]{10}">
+                <input type="text" id="phoneIn" placeholder="Phone Number" inputmode="numeric" maxlength="10" autocomplete="off" pattern="[0-9]{10}">
             </div>
             <div class="inputBox">
                 <label for="emailIn">Email</label>
-                <input type="email" id="emailIn" placeholder="branch@example.com"  autocomplete="email">
+                <input type="email" id="emailIn" placeholder="branch@example.com"  autocomplete="off">
             </div>
             <div class="inputBox">
                 <label for="addressIn">Address</label>
-                <input type="text" id="addressIn" placeholder="Full address" autocomplete="street-address">
+                <input type="text" id="addressIn" placeholder="Full address" autocomplete="off">
             </div>
-        </section>
-        <section class="loction-del">
-            <h4>Location Details</h4>
-            <div class="inputBox location">
-                <label for="locationIn">Location</label>
-                <div class="locationInputs">
-                    <input type="text" id="latIn" placeholder="Latitude" inputmode="numeric" autocomplete="off"  >
-                    <input type="text" id="lngIn" placeholder="Longitude" inputmode="numeric" autocomplete="off" >
-                </div>
-            </div>
-            <div class="inputBox">
-                <label for="radius">Radius(Meter)</label>
-                <input type="text" id="radius" placeholder="Allowed Radius" >
-            </div>
-        </section>
+        </section>        
     </div>
     <div class="newBranch-popup-buttons">
         <button id="saveDtl" class="btn save">Save</button>
@@ -129,6 +114,59 @@
     </div>
 </div>
 </div>
+
+<div id="updateBranchPopup" class="popup-overlay-newBranch">
+  <div class="newBranch-popup" role="dialog" aria-labelledby="newBranchTitle" aria-modal="true">
+    <div class="title">
+      <h3 id="newBranchTitle">Update Branches Details</h3>
+      <p id="status" aria-live="polite"></p></div>
+    <div class="inputFields">
+        <section class="branch-dtl" >
+            <h4>Branch Details</h4>
+            <div class="inputBox">
+                <label for="bCodeUp">Code</label>
+                <input type="text" id="bCodeUp" autocomplete="off">
+            </div>
+            <div class="inputBox">
+                <label for="opnDtUp">Open date</label>
+                <input type="date" id="opnDtUp" autocomplete="off">
+            </div>
+            <div class="inputBox">
+                <label for="branchNameUp">Branch</label>
+                <input type="text" id="branchNameUp" autocomplete="off">
+            </div> 
+            <div class="inputBox">
+                <label for="companyInUp">Group</label>
+                <select name="companyIn" id="companyInUp">
+                  <option disabled selected>Select Branch Group</option>
+                  <option value="chengannur nidhi limited">Chengannur Nidhi</option>
+                  <option value="a r t leasing limited">A R T Leasing</option>
+                </select>
+            </div>
+        </section>
+        <section class="Contact-dtl">
+            <h4>Contacts</h4>
+            <div class="inputBox">
+                <label for="phoneInUp">Phone</label>
+                <input type="text" id="phoneInUp" placeholder="Phone Number" inputmode="numeric" maxlength="10" autocomplete="off" pattern="[0-9]{10}">
+            </div>
+            <div class="inputBox">
+                <label for="emailInUp">Email</label>
+                <input type="email" id="emailInUp" placeholder="branch@example.com"  autocomplete="off">
+            </div>
+            <div class="inputBox">
+                <label for="addressInUp">Address</label>
+                <input type="text" id="addressInUp" placeholder="Full address" autocomplete="off">
+            </div>
+        </section>        
+    </div>
+    <div class="newBranch-popup-buttons">
+        <button id="updateDtl" class="btn update">Update</button>
+        <button id="cancelDtlUp" class="btn cancel">Cancel</button>
+    </div>
+</div>
+</div>
+
 
 
 <script> 
