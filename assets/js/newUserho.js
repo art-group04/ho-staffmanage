@@ -2,8 +2,9 @@ import { db, collection, addDoc, serverTimestamp } from "./database.js";
 
 document.getElementById("saveBtn").onclick = async () => {
   const user = document.getElementById("nameIn").value.trim();
-  const username = document.getElementById("useremail").value.trim();
+  const username = document.getElementById("userINname").value.trim();
   const password = document.getElementById("userpasswordIn").value.trim();
+  const email = document.getElementById("useremail").value.trim();
   const role = document.getElementById("roleIn").value;
   const hoUserPopup = document.getElementById("hoUserPopup");
 
@@ -18,6 +19,7 @@ document.getElementById("saveBtn").onclick = async () => {
       password,
       role,
       user,
+      email,
       createdAt: serverTimestamp(),
     });
 
