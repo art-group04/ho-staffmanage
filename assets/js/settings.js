@@ -225,7 +225,6 @@ btnUser.addEventListener("click", async () => {
   allUsers = await loadUsers();
   renderTable("user", allUsers);
   searchInput.oninput = () => applySearch("user");
-
   document.getElementById("addHoUser").style.display = "none";
 });
 
@@ -358,9 +357,8 @@ cancelUser.addEventListener("click", () => {
 (async function init() {
   allUsers = await loadUsers();
   renderTable("user", allUsers);
-  searchInput.oninput = () => applySearch("user");
+   searchInput.oninput = () => applySearch("user");
 })();
-
 
 function applySearch(type) {
   const term = searchInput.value.toLowerCase();
@@ -377,12 +375,8 @@ function applySearch(type) {
   }
 
   if (type === "branch") {
-    filtered = allBranches.filter(b =>
-      b.code.toLowerCase().includes(term) ||
-      b.branch.toLowerCase().includes(term) ||
-      b.lat.toLowerCase().includes(term) ||
-      b.lng.toLowerCase().includes(term) ||
-      b.status.toLowerCase().includes(term)
+    filtered = allBranches.filter(b =>     
+      b.branch.toLowerCase().includes(term)     
     );
   }
 
@@ -396,3 +390,4 @@ function applySearch(type) {
 
   renderTable(type, filtered);
 }
+
