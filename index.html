@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f83f3f">
   <title>Login - Employee Manage</title>
+  <link rel="icon" type="image/png"href="./assets/images/icon.png">
+   <link rel="icon" type="image/png"href="./assets/images/icon.png">
   <link rel="stylesheet" href="./assets/css/mobil.css">
 </head>
 
@@ -31,5 +33,12 @@
 </div>
 
   <script type="module" src="./assets/js/auth.js"></script>
+   <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./resources/service-worker.js')
+      .then(() => console.log("Service Worker registered"))
+      .catch(err => console.error("SW registration failed", err));
+  }
+</script>
 </body>
 </html>
