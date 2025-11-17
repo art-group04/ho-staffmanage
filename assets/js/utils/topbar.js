@@ -1,4 +1,3 @@
-import { loader, currentUser } from './loggeduser.js';
 
 // 🔹 Load common navbar dynamically
 fetch("./common/navbar.html")
@@ -27,7 +26,7 @@ fetch("./common/navbar.html")
       }
 
       // ✅ Role check: Only show Settings for admin
-      const settingsMenu = document.querySelector('a[href="../settings.html"]')?.closest('li');
+      const settingsMenu = document.querySelector('a[href="./settings.html"]')?.closest('li');
       if (settingsMenu) {
         if (currentUser.role !== "admin") {
           settingsMenu.style.display = "none"; // Hide if not admin
